@@ -1,8 +1,10 @@
 package Juego;
 
+import java.util.Scanner;
+
 public class JuegoAhorcado {
 	
-	public static void dibujarMuñeco(int vidas) {
+	public static void dibujarMuneco(int vidas) {
 		
 		switch (vidas) {
 		case 7:
@@ -124,81 +126,93 @@ public class JuegoAhorcado {
 	public static boolean comprobar(String palabra, char letra) {
 		
 		boolean encontrado =false;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return encontrado
+		return encontrado;
 		
 	}
 	
-	public static void InicializarVectores(String vPalabra, String vAcierto, String vFallo, String palabra) {
-		
-		for (int i = 0; i < vFallo.length; i++) {
-			vFallo[i] = "_";
+	public static void inicializarVectores(String vPalabra[], String vAciertos[], String vFallos[], String palabra) {
+	
 			
+		for (int i = 0; i < vFallos.length; i++) {
+			vFallos[i]  ="_";
 		}
 		
-		
-		
-		
+		for (int i = 0; i < vAciertos.length; i++) {
+			vAciertos[i] = "_";
+			vPalabra[i] = palabra.substring(i, i+1);
+		}
 		
 	}
 	
+	public static int comprobarLetraIntroducida(int vidas, String letra, String vPalabra[], String vAciertos[], String vFallos[]) {
+		
+		boolean acertar = false;
+		
+		for (int i = 0; i < vPalabra.length; i++) {
+			
+			if (letra.equalsIgnoreCase(vPalabra[i])) {
+				
+				vAciertos[i] = letra;
+				acertar = true;
+			}
+		}
+		if (acertar == false) {
+			
+			for (int i = 0; i < vFallos.length; i++) {
+				if (vFallos[i].equals("_")) {
+					vFallos[i] = letra;
+					break;
+				}
+			}
+			
+			
+			vidas--;
+		}
+		
+		return vidas;
+	}
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Vidas totales 7
+		
 		Scanner leer = new Scanner(System.in);
 		
 		int vidas = 8;
-		String vPalabra[], vAcierto[], vFallo[];
-		
-		vPalabra = new String[palabra.length()]
-		
+		String vPalabra[], vAciertos[], vFallos[];
+		String letra, palabra = "huracan";
 		
 		
-		char letra;
-		String palabra = "Huracan";
+		vPalabra = new String[palabra.length()];
+		vAciertos = new String[palabra.length()];
+		vFallos = new String[vidas];
 		
-		//estructura general del juego
+		inicializarVectores(vPalabra, vAciertos, vFallos, palabra);
+		
+		
+		
+		
+		
+		
 		do {
 			
-			// Preguntar Letra
-			S
+			//1º Preguntar letra
+			System.out.println("Dime una letra");
+			letra = leer.next();
+			//2º Comprobar si la letra está en la palabra
+			vidas = comprobarLetraIntroducida(vidas, letra,vPalabra, vAciertos, vFallos);
 			
+			//3º Dibujar muñeco
+			dibujarMuneco(vidas);
+			//4º Dibujar aciertos y errores
 			
-			// Comprobar si letra estar en palabra
-			// Dibujar muñeco
-			dibujarMuñeco(vidas);
-			// Dibujar aciertos y errores
-			vidas--;
-			
-			
-			
-			
-			
-			
+				
 		}
 		while(vidas >= 0);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
+
+	
 
 }

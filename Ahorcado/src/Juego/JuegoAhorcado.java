@@ -123,13 +123,6 @@ public class JuegoAhorcado {
 		
 	}
 	
-	public static boolean comprobar(String palabra, char letra) {
-		
-		boolean encontrado =false;
-		return encontrado;
-		
-	}
-	
 	public static void inicializarVectores(String vPalabra[], String vAciertos[], String vFallos[], String palabra) {
 	
 			
@@ -171,7 +164,41 @@ public class JuegoAhorcado {
 		
 		return vidas;
 	}
+	               
+	public static void aciertosFallos(int vidas, String vFallos[], String vAciertos[], String palabra) {
+		
+		System.out.print("Las letras que no estan son: ");
+		for (int i = 0; i < (8- vidas); i++) {
+			
+			System.out.print(vFallos[i] + ", ");
+		}
+		System.out.println("");
+		
+		System.out.print("La palabra que buscas es: ");
+		for (int i = 0; i < palabra.length(); i++) {
+			
+			System.out.print(vAciertos[i] + " ");
+			
+		}
+		System.out.println();
+		
+		System.out.println("Te quedan " + vidas + " vidas.");
+		
+	}
 	
+	public static boolean palabraCorrecta(String vAciertos[], String palabla) {
+		boolean verdadero = true;
+		
+		for (int i = 0; i < palabla.length(); i++) {
+			if (vAciertos[i].equals("_")) {
+				verdadero = false;
+				break;
+			}
+			
+		}	
+		return verdadero;
+		
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -182,18 +209,13 @@ public class JuegoAhorcado {
 		int vidas = 8;
 		String vPalabra[], vAciertos[], vFallos[];
 		String letra, palabra = "huracan";
-		
+		boolean solucion = false;
 		
 		vPalabra = new String[palabra.length()];
 		vAciertos = new String[palabra.length()];
 		vFallos = new String[vidas];
 		
 		inicializarVectores(vPalabra, vAciertos, vFallos, palabra);
-		
-		
-		
-		
-		
 		
 		do {
 			
@@ -206,13 +228,19 @@ public class JuegoAhorcado {
 			//3º Dibujar muñeco
 			dibujarMuneco(vidas);
 			//4º Dibujar aciertos y errores
+			aciertosFallos(vidas, vFallos, vAciertos, palabra);
 			
+			solucion = palabraCorrecta(vAciertos, palabra);
 				
 		}
-		while(vidas >= 0);
+		while((vidas >= 0)&&(solucion == false));
+		
+		if ((vidas == 0)&&(solucion == false)) {
+			System.out.println("¡Perdiste, intentalo de nuevo!");	
+		} else {
+			System.out.println("¡Enhorabuena, Has ganado!");
+		}
 		
 	}
-
-	
 
 }

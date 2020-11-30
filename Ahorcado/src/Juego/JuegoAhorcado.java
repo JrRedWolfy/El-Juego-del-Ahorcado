@@ -213,7 +213,7 @@ public class JuegoAhorcado {
 		
 		vPalabra = new String[palabra.length()];
 		vAciertos = new String[palabra.length()];
-		vFallos = new String[vidas];
+		vFallos = new String[vidas+1];
 		
 		inicializarVectores(vPalabra, vAciertos, vFallos, palabra);
 		
@@ -235,7 +235,7 @@ public class JuegoAhorcado {
 		}
 		while((vidas >= 0)&&(solucion == false));
 		
-		if ((vidas == 0)&&(solucion == false)) {
+		if ((vidas <= 0)&&(solucion == false)) {
 			System.out.println("¡Perdiste, intentalo de nuevo!");	
 		} else {
 			System.out.println("¡Enhorabuena, Has ganado!");
